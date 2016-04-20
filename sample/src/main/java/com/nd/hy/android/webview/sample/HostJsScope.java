@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.telephony.TelephonyManager;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
+
 import com.nd.hy.android.webview.library.BaseJSInterface;
 
 public class HostJsScope extends BaseJSInterface {

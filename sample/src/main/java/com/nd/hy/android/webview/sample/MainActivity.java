@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.nd.hy.android.webview.library.WebViewDelegate;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.nd.hy.android.webview.library.WebViewDelegate;
 
 
 public class MainActivity extends Activity {
