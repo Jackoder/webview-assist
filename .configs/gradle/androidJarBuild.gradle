@@ -1,0 +1,15 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+configurations {
+    jarArchives
+}
+
+android.libraryVariants.all { variant ->
+    def name = variant.buildType.name
+    def task = project.tasks.create "jar${name.capitalize()}", Jar
+    task.dependsOn variant.javaCompile
+    task.from variant.javaCompile.destinationDir
+    artifacts.add('jarArchives', task);
+}

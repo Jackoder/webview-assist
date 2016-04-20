@@ -1,0 +1,35 @@
+import groovy.text.SimpleTemplateEngine
+// ！该文件是从远程拉取的模板，请勿修改
+//
+// update: 2016022501
+
+android {
+    def cachePath = "${cacheConfigs}/custom/sign/sign.properties"
+    File propFile = file(cachePath)
+    if (propFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propFile))
+
+        File keystore = file(new SimpleTemplateEngine().createTemplate(props['keystore']).make(parent.getProperties()).toString())
+
+        if (keystore.exists()) {
+            signingConfigs {
+                release {
+                    storeFile keystore
+                    storePassword props['keystore.password']
+                    keyAlias props['keyAlias']
+                    keyPassword props['keyPassword']
+                }
+            }
+            buildTypes {
+                release {
+                    signingConfig signingConfigs.release
+                    minifyEnabled true
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                }
+            }
+        } else {
+            println "keystore file is not found!!!"
+        }
+    }
+}

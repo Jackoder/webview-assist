@@ -1,0 +1,8 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+apply plugin: 'com.android.library'
+
+apply from: "${cacheConfigs}/gradle/dependencies.gradle"
+apply from: "${cacheConfigs}/gradle/android.gradle"

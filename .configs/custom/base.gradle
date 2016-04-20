@@ -1,0 +1,10 @@
+// 自定义的基础配置脚本
+//
+ext {
+    downloadVerison = '2.0.0-rc5'
+
+    download = [
+            core : "com.nd.hy.android.component.download:download-core:${downloadVerison}",
+            ui   : "com.nd.hy.android.component.download:download-ui:${downloadVerison}",
+    ]
+}

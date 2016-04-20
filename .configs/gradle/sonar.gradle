@@ -1,0 +1,29 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+apply plugin: "sonar-runner"
+
+apply from: "${cacheConfigs}/gradle/jacoco.gradle"
+
+sonarRunner {
+
+    def url = "jdbc:mysql://mysql.server.huayu.nd:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance";
+
+    sonarProperties {
+        property "sonar.host.url", System.properties['sonarUrl']
+
+        property "sonar.jdbc.url", "${url}"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", System.properties['sonarDbUsername']
+        property "sonar.jdbc.password", System.properties['sonarDbPassword']
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/java"
+        property "sonar.binaries", "build"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectName", "android_${this.group}:${this.name}"
+        property "sonar.projectKey", "android_${this.group}:${this.name}"
+
+        property "sonar.jacoco.reportPath", "${buildDir}/jacoco/testDebugUnitTest.exec"
+    }
+}

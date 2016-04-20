@@ -1,0 +1,13 @@
+apply plugin: 'com.android.application'
+apply from: "${cacheConfigs}/gradle/application.gradle"
+
+android.defaultConfig.applicationId = "com.nd.hy.android.webview.sample"
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile libs.appcompat
+    compile libs.butterKnife
+    compile project(':library')
+
+}

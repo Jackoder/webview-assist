@@ -1,0 +1,40 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+apply plugin: "jacoco"
+
+task jacocoReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running tests.'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // "gradle dependencies" - shows configurations
+    // "jacocoAgent/jacocoAnt" and "androidJacocoAgent/androidJacocoAnt"
+    // The Android version is a newer version
+    // Use hidden configuration, for details look into JacocoPlugin.groovy
+    jacocoClasspath = configurations['androidJacocoAnt']
+
+    // exclude auto-generated classes and tests
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: projectDir, includes: ['**/*.exec'])
+
+    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
+    // We iterate through the compiled .class tree and rename $$ to $.
+    doFirst {
+        new File("$buildDir/intermediates/classes/").eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
+}

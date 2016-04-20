@@ -1,0 +1,42 @@
+apply from: "config.gradle"
+
+subprojects { project ->
+    group = GROUP
+    version = VERSION_NAME
+
+    repositories {
+        maven {
+            url = "http://maven.oschina.net/content/groups/public/"
+        }
+        maven { url "https://jitpack.io" }
+        jcenter()
+    }
+
+    buildscript {
+        repositories {
+            jcenter()
+            maven {
+                url = "http://maven.oschina.net/content/groups/public/"
+            }
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:2.1.0-beta3'
+            classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+            classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+            classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
+            classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+            // A Gradle plugin to report the number of method references in your APK on every build.
+            classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.0'
+            // NOTE: Do not place your application dependencies here; they belong
+            // in the individual module build.gradle files
+        }
+        // Exclude the version that the android plugin depends on.
+        configurations.classpath.exclude group: 'com.android.tools.external.lombok'
+    }
+
+    configurations.all { resolutionStrategy.cacheChangingModulesFor 0, 'seconds' }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

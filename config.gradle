@@ -1,0 +1,21 @@
+allprojects {
+    ext {
+        getPropertyOrDefault = { key, defValue ->
+            if (project.getProperties().containsKey(key)) {
+                return project.getProperties().get(key)
+            } else {
+                return defValue
+            }
+        }
+
+        downloadFile = { localFile, url ->
+            if (!localFile.exists()) {
+                new URL(url).withInputStream { i -> localFile.withOutputStream { it << i } }
+            }
+        }
+
+        cacheConfigsDir = getPropertyOrDefault("CONFIG_CACHE", ".configs")
+        cacheConfigs = "${rootDir}/${cacheConfigsDir}"
+//        remoteConfigsUrl = "${CONFIG_URL}/"
+    }
+}

@@ -1,0 +1,30 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+apply plugin: 'findbugs'
+
+task findbugs(type: FindBugs) {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = new File("${cacheConfigs}/findbugs/findbugs-filter.xml")
+    classes = files("${project.buildDir}/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "${project.buildDir}/reports/findbugs/findbugs.xml"
+        }
+        html {
+            destination "${project.buildDir}/reports/findbugs/findbugs.html"
+        }
+    }
+
+    classpath = files()
+}

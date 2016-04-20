@@ -1,0 +1,24 @@
+// ！该文件是从远程拉取的模板，请勿修改
+// 
+// update: 2016021701
+
+ext {
+    isPushSdp = getPropertyOrDefault("PUSH_SDP", "true").toBoolean();
+    isSnapshot = this.version.endsWith("-SNAPSHOT");
+
+    if (!isPushSdp) {
+        deployHost = "http://nexus.huayu.nd"
+        deployReleaseUrl = "${deployHost}/nexus/content/repositories/releases"
+        deploySnapshotUrl = "${deployHost}/nexus/content/repositories/snapshots"
+        nexusUsername = System.properties['deployHyUsername']
+        nexusPassword = System.properties['deployHyPassword']
+    } else {
+        deployHost = "http://nexus.sdp.nd"
+        deployReleaseUrl = "${deployHost}/nexus/content/repositories/android"
+        deploySnapshotUrl = "${deployHost}/nexus/content/repositories/android_snapshot"
+        nexusUsername = System.properties['deploySdpUsername']
+        nexusPassword = System.properties['deploySdpPassword']
+    }
+
+    deployLocalRepo = "file:///e:/repo"
+}
