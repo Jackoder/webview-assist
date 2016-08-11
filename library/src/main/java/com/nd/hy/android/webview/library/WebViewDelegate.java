@@ -69,6 +69,8 @@ public class WebViewDelegate {
         disableAppCache();
         //Accelerate
         mWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        //Save Password
+        disableSavePassword();
         return this;
     }
 
@@ -212,6 +214,16 @@ public class WebViewDelegate {
 
     public WebViewDelegate disableAppCache() {
         mWebSettings.setAppCacheEnabled(false);
+        return this;
+    }
+
+    public WebViewDelegate enableSavePassword() {
+        mWebSettings.setSavePassword(true);
+        return this;
+    }
+
+    public WebViewDelegate disableSavePassword() {
+        mWebSettings.setSavePassword(false);
         return this;
     }
 

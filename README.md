@@ -12,12 +12,12 @@
 <dependency>
     <groupId>com.github.Jackoder</groupId>
     <artifactId>webview-assist</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 - Gradle
 ```gradle
-compile 'com.github.Jackoder:webview-assist:1.0'
+compile 'com.github.Jackoder:webview-assist:1.1'
 ```
 
 ## 使用
@@ -148,6 +148,8 @@ public WebViewDelegate defaultSettings() {
     mWebSettings.setAppCacheEnabled(false);
     //使用加速渲染
     mWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+    //不启用密码保存（明文密码会保存到应用数据目录的databases/webview.db中，如果手机被root就可以被获取，敏感数据泄漏。）
+    disableSavePassword();
     return this;
 }
 ```
@@ -167,6 +169,9 @@ public WebViewDelegate defaultSettings() {
 |WebViewDelegate disableAppCache()|不启用本地缓存|
 |WebViewDelegate enableDomStorage()|启用Dom存储|
 |WebViewDelegate disableDomStorage()|不启用Dom存储|
+|WebViewDelegate enableSavePassword()|启用密码保存|
+|WebViewDelegate disableSavePassword()|不启用密码保存|
+
 ### 安全漏洞
 首先，看一篇乌云的漏洞报告: [http://drops.wooyun.org/papers/548](http://drops.wooyun.org/papers/548)
 针对　WebView 的安全漏洞，Google 在 4.2 及以上版本解决了这个问题，但对 4.2 以下的版本并没有开发修复补丁的打算。网上提供了一套解决方案，能够避免该漏洞。将 JS 中函数调用的方法和参数封装后利用 `prompt()` 方法触发 WebChromeClient 的 `onJsPrompt` 回调，根据方法与参数调用 Java 接口。
