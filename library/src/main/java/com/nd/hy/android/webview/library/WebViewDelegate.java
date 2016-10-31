@@ -20,6 +20,7 @@ public class WebViewDelegate {
     private WebView             mWebView;
     private WebSettings         mWebSettings;
     private SafeWebChromeClient mChromeClient;
+    private boolean             mSSLCheck;
 
     private WebViewDelegate(WebView webView) {
         this.mWebView = webView;
@@ -71,6 +72,8 @@ public class WebViewDelegate {
         mWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         //Save Password
         disableSavePassword();
+        //SSL check
+        enableSslCheck();
         return this;
     }
 
@@ -224,6 +227,16 @@ public class WebViewDelegate {
 
     public WebViewDelegate disableSavePassword() {
         mWebSettings.setSavePassword(false);
+        return this;
+    }
+
+    public WebViewDelegate enableSslCheck() {
+        mSSLCheck = true;
+        return this;
+    }
+
+    public WebViewDelegate disableSSLCheck () {
+        mSSLCheck = false;
         return this;
     }
 
