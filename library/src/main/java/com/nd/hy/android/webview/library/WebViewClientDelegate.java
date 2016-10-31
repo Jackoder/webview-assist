@@ -96,22 +96,22 @@ public class WebViewClientDelegate extends WebViewClient {
     @Override
     public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
         if (mSSlCheck) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setMessage(R.string.wv_error_ssl_cert_invalid);
-            builder.setPositiveButton(R.string.wv_continue, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    handler.proceed();
-                }
-            });
-            builder.setNegativeButton(R.string.wv_cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    handler.cancel();
-                }
-            });
-            final AlertDialog dialog = builder.create();
-            dialog.show();
+            new AlertDialog.Builder(mContext)
+                    .setMessage(R.string.wv_error_ssl_cert_invalid)
+                    .setPositiveButton(R.string.wv_continue, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            handler.proceed();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(R.string.wv_cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            handler.cancel();
+                            dialog.dismiss();
+                        }
+                    }).create().show();
         } else {
             mWebViewClient.onReceivedSslError(view, handler, error);
         }
