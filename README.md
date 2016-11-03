@@ -12,7 +12,7 @@
 <dependency>
     <groupId>com.github.Jackoder</groupId>
     <artifactId>webview-assist</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 - Gradle
