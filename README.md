@@ -17,7 +17,7 @@
 ```
 - Gradle
 ```gradle
-compile 'com.github.Jackoder:webview-assist:1.1'
+compile 'com.github.Jackoder:webview-assist:1.2'
 ```
 
 ## 使用
@@ -149,7 +149,9 @@ public WebViewDelegate defaultSettings() {
     //使用加速渲染
     mWebSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
     //不启用密码保存（明文密码会保存到应用数据目录的databases/webview.db中，如果手机被root就可以被获取，敏感数据泄漏。）
-    disableSavePassword();
+    mWebSettings.setSavePassword(false);
+    //SSL验证处理，如果失败弹出对话框提醒用户选择操作“继续”或“取消”
+    mSSLCheck = true;
     return this;
 }
 ```
@@ -171,6 +173,8 @@ public WebViewDelegate defaultSettings() {
 |WebViewDelegate disableDomStorage()|不启用Dom存储|
 |WebViewDelegate enableSavePassword()|启用密码保存|
 |WebViewDelegate disableSavePassword()|不启用密码保存|
+|WebViewDelegate enableDomStorage()|检查SSL证书|
+|WebViewDelegate disableDomStorage()|不检查SSL证书|
 
 ### 安全漏洞
 首先，看一篇乌云的漏洞报告: [http://drops.wooyun.org/papers/548](http://drops.wooyun.org/papers/548)
@@ -211,3 +215,5 @@ Android WebView的Js对象注入漏洞解决方案：[http://blog.csdn.net/leeho
 WebView中的Java与JavaScript提供【安全可靠】的多样互通方案：[https://github.com/pedant/safe-java-js-webview-bridge](https://github.com/pedant/safe-java-js-webview-bridge)
 
 【疑难杂症】Android WebView 无法打开天猫页面：[http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled](http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled)
+
+Webview avoid security alert from google play upon implementation of onReceivedSslError：[http://stackoverflow.com/questions/36050741/webview-avoid-security-alert-from-google-play-upon-implementation-of-onreceiveds](http://stackoverflow.com/questions/36050741/webview-avoid-security-alert-from-google-play-upon-implementation-of-onreceiveds)

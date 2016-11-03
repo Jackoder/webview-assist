@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wv_error_ssl_cert_invalid">SSL证书不可用</string>
+    <string name="wv_continue">继续</string>
+    <string name="wv_cancel">取消</string>
+</resources>
